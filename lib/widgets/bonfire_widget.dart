@@ -64,6 +64,7 @@ class BonfireWidget extends StatefulWidget {
 
   final TapInGame? onTapDown;
   final TapInGame? onTapUp;
+  final TapInGame? onCursorMove;
 
   final ValueChanged<BonfireGame>? onReady;
   final Map<String, OverlayWidgetBuilder<BonfireGame>>? overlayBuilderMap;
@@ -101,6 +102,7 @@ class BonfireWidget extends StatefulWidget {
     this.cameraConfig,
     this.onTapDown,
     this.onTapUp,
+    this.onCursorMove,
     this.onReady,
     this.focusNode,
     this.autofocus = true,
@@ -218,6 +220,7 @@ class BonfireWidgetState extends State<BonfireWidget> {
       },
       onTapDown: widget.onTapDown,
       onTapUp: widget.onTapUp,
+      onCursorMove: widget.onCursorMove
     );
   }
 

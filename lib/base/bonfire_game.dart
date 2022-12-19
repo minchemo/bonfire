@@ -10,6 +10,7 @@ import 'package:bonfire/color_filter/color_filter_component.dart';
 import 'package:bonfire/joystick/joystick_map_explorer.dart';
 import 'package:bonfire/lighting/lighting_component.dart';
 import 'package:bonfire/mixins/pointer_detector.dart';
+import 'package:flame/events.dart';
 // ignore: implementation_imports
 import 'package:flame/src/game/overlay_manager.dart';
 import 'package:flutter/widgets.dart';
@@ -68,6 +69,9 @@ class BonfireGame extends BaseGame implements BonfireGameInterface {
   /// Callback to receive the onTapUp event from the game.
   final TapInGame? onTapUp;
 
+  /// Callback to receive the onMouseMove event from the game.
+  final TapInGame? onCursorMove;
+
   @override
   SceneBuilderStatus sceneBuilderStatus = SceneBuilderStatus();
 
@@ -115,6 +119,7 @@ class BonfireGame extends BaseGame implements BonfireGameInterface {
     this.onReady,
     this.onTapDown,
     this.onTapUp,
+    this.onCursorMove,
     Color? backgroundColor,
     GameColorFilter? colorFilter,
     CameraConfig? cameraConfig,
@@ -203,6 +208,7 @@ class BonfireGame extends BaseGame implements BonfireGameInterface {
     super.onMount();
   }
 
+  @override
   @override
   Iterable<GameComponent> visibleComponents() => _visibleComponents;
 
@@ -351,9 +357,7 @@ class BonfireGame extends BaseGame implements BonfireGameInterface {
   @override
   void stopScene() {
     try {
-      children
-          .firstWhere((value) => value is SceneBuilderComponent)
-          .removeFromParent();
+      children.firstWhere((value) => value is SceneBuilderComponent).removeFromParent();
     } catch (e) {
       /// Not found SceneBuilderComponent
     }
@@ -395,5 +399,17 @@ class BonfireGame extends BaseGame implements BonfireGameInterface {
   @override
   void enableKeyboard(bool enable) {
     enabledKeyboard = enable;
+  }
+
+  @override
+  void onMouseMove(PointerHoverInfo info) {
+    if (onCursorMove != null) {
+      onCursorMove?.call(
+        this,
+        info.eventPosition.game,
+        camera.screenToWorld(info.eventPosition.game),
+      );
+    }
+    super.onMouseMove(info);
   }
 }
