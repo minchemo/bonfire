@@ -62,9 +62,9 @@ class BonfireWidget extends StatefulWidget {
   final Duration progressTransitionDuration;
   final AnimatedSwitcherTransitionBuilder progressTransitionBuilder;
 
-  final TapInGame? onTapDown;
-  final TapInGame? onTapUp;
-  final TapInGame? onCursorMove;
+  final MouseEventInGame? onTapDown;
+  final MouseEventInGame? onTapUp;
+  final MouseEventInGame? onCursorMove;
 
   final ValueChanged<BonfireGame>? onReady;
   final Map<String, OverlayWidgetBuilder<BonfireGame>>? overlayBuilderMap;
@@ -220,7 +220,7 @@ class BonfireWidgetState extends State<BonfireWidget> {
       },
       onTapDown: widget.onTapDown,
       onTapUp: widget.onTapUp,
-      onCursorMove: widget.onCursorMove
+      onMouseMoving: widget.onCursorMove
     );
   }
 

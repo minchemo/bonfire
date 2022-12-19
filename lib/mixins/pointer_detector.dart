@@ -55,7 +55,7 @@ abstract class PointerDetectorHandler {
   }
 }
 
-typedef TapInGame = void Function(
+typedef MouseEventInGame = void Function(
   BonfireGame game,
   Vector2 screenPosition,
   Vector2 worldPosition,

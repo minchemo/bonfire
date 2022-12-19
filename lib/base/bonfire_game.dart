@@ -64,13 +64,13 @@ class BonfireGame extends BaseGame implements BonfireGameInterface {
   final Color? lightingColorGame;
 
   /// Callback to receive the tapDown event from the game.
-  final TapInGame? onTapDown;
+  final MouseEventInGame? onTapDown;
 
   /// Callback to receive the onTapUp event from the game.
-  final TapInGame? onTapUp;
+  final MouseEventInGame? onTapUp;
 
-  /// Callback to receive the onMouseMove event from the game.
-  final TapInGame? onCursorMove;
+  /// Callback to receive the onMouseMoving event from the game.
+  final MouseEventInGame? onMouseMoving;
 
   @override
   SceneBuilderStatus sceneBuilderStatus = SceneBuilderStatus();
@@ -119,7 +119,7 @@ class BonfireGame extends BaseGame implements BonfireGameInterface {
     this.onReady,
     this.onTapDown,
     this.onTapUp,
-    this.onCursorMove,
+    this.onMouseMoving,
     Color? backgroundColor,
     GameColorFilter? colorFilter,
     CameraConfig? cameraConfig,
@@ -403,8 +403,8 @@ class BonfireGame extends BaseGame implements BonfireGameInterface {
 
   @override
   void onMouseMove(PointerHoverInfo info) {
-    if (onCursorMove != null) {
-      onCursorMove?.call(
+    if (onMouseMoving != null) {
+      onMouseMoving?.call(
         this,
         info.eventPosition.game,
         camera.screenToWorld(info.eventPosition.game),
